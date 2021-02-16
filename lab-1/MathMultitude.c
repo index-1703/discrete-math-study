@@ -33,25 +33,36 @@ static char getWords(char *arr, int arrSize) {
 		arr[0] = '\0';
 		return ch;
 	}
-
-	if ( ch == '"' ) {
+	else if ( ch == '"' ) {
 		endch = '"';
 	}
-	else {
-		arr[0] = ch;
+	else if ( ch >= (char) 32 && ch <= (char) 126 && ch != '"' ) {
+		arr[size++] = ch;
 	}
-	size++;
+	else {
+		skip();
+		return (char) 0;
+	}
 
 	while ( size < arrSize - 1 ) {
 		ch = getchar();
 
-		if ( ch == endch || ch == '\n' ) break;
-		if ( ch >= (char) 32 && ch <= (char) 126 && ch != '"' ) {
+		if ( ch == endch || ch == '\n' ) {
+			break;
+		}
+		else if(ch >= (char) 32 && ch <= (char) 126 && ch != '"') {
 			arr[size++] = ch;
+		}
+		else {
+			skip();
+			return (char) 0;
 		}
 	}
 
-	if ( !(size < arrSize - 1) ) return (char) 0;
+	if ( !(size < arrSize - 1) ) {
+		if ( ch != '\n' ) skip();
+		return (char) 0;
+	}
 	if ( endch == '"' ) ch = getchar();
 	arr[size++] = 0;
 
@@ -84,9 +95,18 @@ static int getArguments(char **word, int size) {
 		for ( int j = 0; j < i; j++ ) free(word[j]);
 		printf("ERROR: Недостаточно памяти.\n");
 		return 0;
+	}else if ( lastCh == 0 ) {
+		for ( int j = 0; j < size; j++ ) free(word[j]);
+		printf("ERROR: Неверный синтаксис.\n");
+		return 0;
 	}
-	
-	if ( lastCh != '\n' ) {
+	else if ( i != size ) {
+		if( lastCh != '\n' ) skip();
+		for ( int j = 0; j <= i; j++ ) free(word[j]);
+		printf("ERROR: Неверный синтаксис.\n");
+		return 0;
+	}
+	else if ( lastCh != '\n' ) {
 		if ( skip() ) {
 			for ( int j = 0; j < size; j++ ) free(word[j]);
 			printf("ERROR: Неверный синтаксис.\n");
@@ -130,7 +150,7 @@ void initMathMult(void)
 	while ( 1 ) {
 		CH = getWords(cmd, sizeof(cmd));
 		if ( CH == 0 ) {
-			printf("ERROR: Не верная команда.\n");
+			printf("ERROR: Неверная команда.\n");
 		}
 		else {
 			if ( !strcmp(cmd, "") ) {
@@ -138,57 +158,76 @@ void initMathMult(void)
 			}
 			else if ( !strcmp(cmd, "NEW") ) {
 				char *(arg[1]);
-				if ( CH == '\n' ) { printf("ERROR: Не верный синтаксис.\n"); continue; }
+				if ( CH == '\n' ) { printf("ERROR: Неверный синтаксис.\n"); continue; }
 				if ( getArguments(arg, sizeof(arg) / sizeof(arg[0])) ) {
 					if ( strlen(arg[0]) == 1 ) {
 						CreatArray(*(arg[0]));
+					}
+					else {
+						printf("ERROR: Неверный синтаксис.\n");
 					}
 					free(arg[0]);
 				}
 			}
 			else if ( !strcmp(cmd, "DEL") ) {
 				char *(arg[1]);
-				if ( CH == '\n' ) { printf("ERROR: Не верный синтаксис.\n"); continue; }
+				if ( CH == '\n' ) { printf("ERROR: Неверный синтаксис.\n"); continue; }
 				if ( getArguments(arg, sizeof(arg) / sizeof(arg[0])) ) {
 					if ( strlen(arg[0]) == 1 ) {
 						DelArray(*(arg[0]));
+					}
+					else
+					{
+						printf("ERROR: Неверный синтаксис.\n");
 					}
 					free(arg[0]);
 				}
 			}
 			else if ( !strcmp(cmd, "pow") ) {
 				char *(arg[1]);
-				if ( CH == '\n' ) { printf("ERROR: Не верный синтаксис.\n"); continue; }
+				if ( CH == '\n' ) { printf("ERROR: Неверный синтаксис.\n"); continue; }
 				if ( getArguments(arg, sizeof(arg) / sizeof(arg[0])) ) {
 					if ( strlen(arg[0]) == 1 ) {
 						CountElem(*(arg[0]));
+					}
+					else
+					{
+						printf("ERROR: Неверный синтаксис.\n");
 					}
 					free(arg[0]);
 				}
 			}
 			else if ( !strcmp(cmd, "add") ) {
 				char *(arg[2]);
-				if ( CH == '\n' ) { printf("ERROR: Не верный синтаксис.\n"); continue; }
+				if ( CH == '\n' ) { printf("ERROR: Неверный синтаксис.\n"); continue; }
 				if ( getArguments(arg, sizeof(arg) / sizeof(arg[0])) ) {
 					if ( strlen(arg[0]) == 1 ) {
 						AddElem(findMult(*(arg[0])), arg[1]);
+					}
+					else
+					{
+						printf("ERROR: Неверный синтаксис.\n");
 					}
 					free(arg[0]);
 				}
 			}
 			else if ( !strcmp(cmd, "del") ) {
 				char *(arg[2]);
-				if ( CH == '\n' ) { printf("ERROR: Не верный синтаксис.\n"); continue; }
+				if ( CH == '\n' ) { printf("ERROR: Неверный синтаксис.\n"); continue; }
 				if ( getArguments(arg, sizeof(arg) / sizeof(arg[0])) ) {
 					if ( strlen(arg[0]) == 1 ) {
 						DelElem(findMult(*(arg[0])), arg[1]);
+					}
+					else
+					{
+						printf("ERROR: Неверный синтаксис.\n");
 					}
 					free(arg[0]);
 				}
 			}
 			else if ( !strcmp(cmd, "che") ) {
 				char *(arg[2]);
-				if ( CH == '\n' ) { printf("ERROR: Не верный синтаксис.\n"); continue; }
+				if ( CH == '\n' ) { printf("ERROR: Неверный синтаксис.\n"); continue; }
 				if ( getArguments(arg, sizeof(arg) / sizeof(arg[0])) ) {
 					if ( strlen(arg[0]) == 1 ) {
 						switch ( CheckElem(findMult(*(arg[0])), arg[1]) )
@@ -206,18 +245,26 @@ void initMathMult(void)
 							break;
 						}
 					}
+					else
+					{
+						printf("ERROR: Неверный синтаксис.\n");
+					}
 					free(arg[0]);
 				}
 			}
 			else if ( !strcmp(cmd, "uni") ) {
 				char *(arg[3]);
-				if ( CH == '\n' ) { printf("ERROR: Не верный синтаксис.\n"); continue; }
+				if ( CH == '\n' ) { printf("ERROR: Неверный синтаксис.\n"); continue; }
 				if ( getArguments(arg, sizeof(arg) / sizeof(arg[0])) ) {
 					if ( strlen(arg[0]) == 1 && strlen(arg[1]) == 1 && strlen(arg[2]) == 1 ) {
 						t_mult *pm = UnityArray(*(arg[0]), *(arg[1]), *(arg[2]));
 #ifdef PRINT_MULT_OPER
 						if ( pm ) ShowElemListMult(pm);
 #endif // PRINT_MULT_OPER
+					}
+					else
+					{
+						printf("ERROR: Неверный синтаксис.\n");
 					}
 					free(arg[0]);
 					free(arg[1]);
@@ -226,13 +273,17 @@ void initMathMult(void)
 			}
 			else if ( !strcmp(cmd, "int") ) {
 				char *(arg[3]);
-				if ( CH == '\n' ) { printf("ERROR: Не верный синтаксис.\n"); continue; }
+				if ( CH == '\n' ) { printf("ERROR: Неверный синтаксис.\n"); continue; }
 				if ( getArguments(arg, sizeof(arg) / sizeof(arg[0])) ) {
 					if ( strlen(arg[0]) == 1 && strlen(arg[1]) == 1 && strlen(arg[2]) == 1 ) {
 						t_mult *pm = InterArray(*(arg[0]), *(arg[1]), *(arg[2]));
 #ifdef PRINT_MULT_OPER
 						if ( pm ) ShowElemListMult(pm);
 #endif // PRINT_MULT_OPER
+					}
+					else
+					{
+						printf("ERROR: Неверный синтаксис.\n");
 					}
 					free(arg[0]);
 					free(arg[1]);
@@ -241,13 +292,17 @@ void initMathMult(void)
 			}
 			else if ( !strcmp(cmd, "dif") ) {
 				char *(arg[3]);
-				if ( CH == '\n' ) { printf("ERROR: Не верный синтаксис.\n"); continue; }
+				if ( CH == '\n' ) { printf("ERROR: Неверный синтаксис.\n"); continue; }
 				if ( getArguments(arg, sizeof(arg) / sizeof(arg[0])) ) {
 					if ( strlen(arg[0]) == 1 && strlen(arg[1]) == 1 && strlen(arg[2]) == 1 ) {
 						t_mult *pm = DiffArray(*(arg[0]), *(arg[1]), *(arg[2]));
 #ifdef PRINT_MULT_OPER
 						if ( pm ) ShowElemListMult(pm);
 #endif // PRINT_MULT_OPER
+					}
+					else
+					{
+						printf("ERROR: Неверный синтаксис.\n");
 					}
 					free(arg[0]);
 					free(arg[1]);
@@ -256,13 +311,17 @@ void initMathMult(void)
 			}
 			else if ( !strcmp(cmd, "sym") ) {
 				char *(arg[3]);
-				if ( CH == '\n' ) { printf("ERROR: Не верный синтаксис.\n"); continue; }
+				if ( CH == '\n' ) { printf("ERROR: Неверный синтаксис.\n"); continue; }
 				if ( getArguments(arg, sizeof(arg) / sizeof(arg[0])) ) {
 					if ( strlen(arg[0]) == 1 && strlen(arg[1]) == 1 && strlen(arg[2]) == 1 ) {
 						t_mult *pm = SymmDeffArray(*(arg[0]), *(arg[1]), *(arg[2]));
 #ifdef PRINT_MULT_OPER
 						if ( pm ) ShowElemListMult(pm);
 #endif // PRINT_MULT_OPER
+					}
+					else
+					{
+						printf("ERROR: Неверный синтаксис.\n");
 					}
 					free(arg[0]);
 					free(arg[1]);
@@ -271,7 +330,7 @@ void initMathMult(void)
 			}
 			else if ( !strcmp(cmd, "inc") ) {
 				char *(arg[2]);
-				if ( CH == '\n' ) { printf("ERROR: Не верный синтаксис.\n"); continue; }
+				if ( CH == '\n' ) { printf("ERROR: Неверный синтаксис.\n"); continue; }
 				if ( getArguments(arg, sizeof(arg) / sizeof(arg[0])) ) {
 					if ( strlen(arg[0]) == 1 && strlen(arg[1]) == 1 ) {
 						switch ( isIncludeArray(*(arg[0]), *(arg[1])) )
@@ -286,6 +345,10 @@ void initMathMult(void)
 							break;
 						} 
 					}
+					else
+					{
+						printf("ERROR: Неверный синтаксис.\n");
+					}
 					free(arg[0]);
 					free(arg[1]);
 				}
@@ -293,7 +356,7 @@ void initMathMult(void)
 			else if ( !strcmp(cmd, "ls") ) {
 				if ( CH != '\n' ) {
 					if ( skip() ) {
-						printf("Не верный синтаксис.\n");
+						printf("Неверный синтаксис.\n");
 						continue;
 					}
 				}
@@ -301,10 +364,14 @@ void initMathMult(void)
 			}
 			else if ( !strcmp(cmd, "le") ) {
 				char *(arg[1]);
-				if ( CH == '\n' ) { printf("ERROR: Не верный синтаксис.\n"); continue; }
+				if ( CH == '\n' ) { printf("ERROR: Неверный синтаксис.\n"); continue; }
 				if ( getArguments(arg, sizeof(arg) / sizeof(arg[0])) ) {
 					if ( strlen(arg[0]) == 1 ) {
 						ShowElemListMult(findMult(*(arg[0])));
+					}
+					else
+					{
+						printf("ERROR: Неверный синтаксис.\n");
 					}
 					free(arg[0]);
 				}
@@ -312,7 +379,7 @@ void initMathMult(void)
 			else if ( !strcmp(cmd, "help") ) {
 				if ( CH != '\n' ) {
 					if ( skip() ) {
-						printf("Не верный синтаксис.\n");
+						printf("Неверный синтаксис.\n");
 						continue;
 					}
 				}
@@ -321,15 +388,16 @@ void initMathMult(void)
 			else if ( !strcmp(cmd, "exit") ) {
 				if ( CH != '\n' ) {
 					if ( skip() ) {
-						printf("Не верный синтаксис.\n");
+						printf("Неверный синтаксис.\n");
 						continue;
 					}
 				}
 				break;
 			}
 			else {
-			if ( CH != '\n' ) skip();
-				printf("ERROR: Не верная команда.\n");
+				if ( CH != '\n' )
+					skip();
+				printf("ERROR: Неверная команда.\n");
 			}
 		}
 	}
@@ -444,7 +512,7 @@ void DelArray(char name)
 	}
 	else {
 		for ( pMult = HeadMultList; pMult->next != MNULL && pMult->next->name < name; pMult = pMult->next );
-		if ( pMult->next != MNULL ) {
+		if ( pMult->next != MNULL && pMult->next->name == name ) {
 			pMultPrev = pMult;
 			pMult = pMult->next;
 			pMultPrev->next = pMult->next;
