@@ -1,4 +1,4 @@
-#include "MathMultitude.h"
+п»ї#include "MathMultitude.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -7,7 +7,7 @@
 
 #pragma warning(disable:4996)
 
-// Выводить список элементов множества после Операций над множествами
+// Р’С‹РІРѕРґРёС‚СЊ СЃРїРёСЃРѕРє СЌР»РµРјРµРЅС‚РѕРІ РјРЅРѕР¶РµСЃС‚РІР° РїРѕСЃР»Рµ РћРїРµСЂР°С†РёР№ РЅР°Рґ РјРЅРѕР¶РµСЃС‚РІР°РјРё
 #define PRINT_MULT_OPER
 
 #define SIZE_ELEMENT 81
@@ -82,14 +82,14 @@ static int getArguments(char **word, int size) {
 
 	if ( !str ) {
 		for ( int j = 0; j < i; j++ ) free(word[j]);
-		printf("ERROR: Недостаточно памяти.\n");
+		printf("ERROR: РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РїР°РјСЏС‚Рё.\n");
 		return 0;
 	}
 	
 	if ( lastCh != '\n' ) {
 		if ( skip() ) {
 			for ( int j = 0; j < size; j++ ) free(word[j]);
-			printf("ERROR: Неверный синтаксис.\n");
+			printf("ERROR: РќРµРІРµСЂРЅС‹Р№ СЃРёРЅС‚Р°РєСЃРёСЃ.\n");
 			return 0;
 		}
 	}
@@ -104,7 +104,7 @@ static int Append(t_element **c, t_element **e, char *d) {
 	if ( !str || !q ) {
 		free(str);
 		free(q);
-		printf("ERROR: Недостаточно памяти.\n");
+		printf("ERROR: РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РїР°РјСЏС‚Рё.\n");
 		return 0;
 	}
 
@@ -130,7 +130,7 @@ void initMathMult(void)
 	while ( 1 ) {
 		CH = getWords(cmd, sizeof(cmd));
 		if ( CH == 0 ) {
-			printf("ERROR: Не верная команда.\n");
+			printf("ERROR: РќРµ РІРµСЂРЅР°СЏ РєРѕРјР°РЅРґР°.\n");
 		}
 		else {
 			if ( !strcmp(cmd, "") ) {
@@ -138,7 +138,7 @@ void initMathMult(void)
 			}
 			else if ( !strcmp(cmd, "NEW") ) {
 				char *(arg[1]);
-				if ( CH == '\n' ) { printf("ERROR: Не верный синтаксис.\n"); continue; }
+				if ( CH == '\n' ) { printf("ERROR: РќРµ РІРµСЂРЅС‹Р№ СЃРёРЅС‚Р°РєСЃРёСЃ.\n"); continue; }
 				if ( getArguments(arg, sizeof(arg) / sizeof(arg[0])) ) {
 					if ( strlen(arg[0]) == 1 ) {
 						CreatArray(*(arg[0]));
@@ -148,7 +148,7 @@ void initMathMult(void)
 			}
 			else if ( !strcmp(cmd, "DEL") ) {
 				char *(arg[1]);
-				if ( CH == '\n' ) { printf("ERROR: Не верный синтаксис.\n"); continue; }
+				if ( CH == '\n' ) { printf("ERROR: РќРµ РІРµСЂРЅС‹Р№ СЃРёРЅС‚Р°РєСЃРёСЃ.\n"); continue; }
 				if ( getArguments(arg, sizeof(arg) / sizeof(arg[0])) ) {
 					if ( strlen(arg[0]) == 1 ) {
 						DelArray(*(arg[0]));
@@ -158,7 +158,7 @@ void initMathMult(void)
 			}
 			else if ( !strcmp(cmd, "pow") ) {
 				char *(arg[1]);
-				if ( CH == '\n' ) { printf("ERROR: Не верный синтаксис.\n"); continue; }
+				if ( CH == '\n' ) { printf("ERROR: РќРµ РІРµСЂРЅС‹Р№ СЃРёРЅС‚Р°РєСЃРёСЃ.\n"); continue; }
 				if ( getArguments(arg, sizeof(arg) / sizeof(arg[0])) ) {
 					if ( strlen(arg[0]) == 1 ) {
 						CountElem(*(arg[0]));
@@ -168,7 +168,7 @@ void initMathMult(void)
 			}
 			else if ( !strcmp(cmd, "add") ) {
 				char *(arg[2]);
-				if ( CH == '\n' ) { printf("ERROR: Не верный синтаксис.\n"); continue; }
+				if ( CH == '\n' ) { printf("ERROR: РќРµ РІРµСЂРЅС‹Р№ СЃРёРЅС‚Р°РєСЃРёСЃ.\n"); continue; }
 				if ( getArguments(arg, sizeof(arg) / sizeof(arg[0])) ) {
 					if ( strlen(arg[0]) == 1 ) {
 						AddElem(findMult(*(arg[0])), arg[1]);
@@ -178,7 +178,7 @@ void initMathMult(void)
 			}
 			else if ( !strcmp(cmd, "del") ) {
 				char *(arg[2]);
-				if ( CH == '\n' ) { printf("ERROR: Не верный синтаксис.\n"); continue; }
+				if ( CH == '\n' ) { printf("ERROR: РќРµ РІРµСЂРЅС‹Р№ СЃРёРЅС‚Р°РєСЃРёСЃ.\n"); continue; }
 				if ( getArguments(arg, sizeof(arg) / sizeof(arg[0])) ) {
 					if ( strlen(arg[0]) == 1 ) {
 						DelElem(findMult(*(arg[0])), arg[1]);
@@ -188,19 +188,19 @@ void initMathMult(void)
 			}
 			else if ( !strcmp(cmd, "che") ) {
 				char *(arg[2]);
-				if ( CH == '\n' ) { printf("ERROR: Не верный синтаксис.\n"); continue; }
+				if ( CH == '\n' ) { printf("ERROR: РќРµ РІРµСЂРЅС‹Р№ СЃРёРЅС‚Р°РєСЃРёСЃ.\n"); continue; }
 				if ( getArguments(arg, sizeof(arg) / sizeof(arg[0])) ) {
 					if ( strlen(arg[0]) == 1 ) {
 						switch ( CheckElem(findMult(*(arg[0])), arg[1]) )
 						{
 						case 1:
-							printf("Элемент найден\n");
+							printf("Р­Р»РµРјРµРЅС‚ РЅР°Р№РґРµРЅ\n");
 							break;
 						case 0:
-							printf("Элемент не найден\n");
+							printf("Р­Р»РµРјРµРЅС‚ РЅРµ РЅР°Р№РґРµРЅ\n");
 							break;
 						case -1:
-							printf("ERROR: Множество с таким именем не существует\n");
+							printf("ERROR: РњРЅРѕР¶РµСЃС‚РІРѕ СЃ С‚Р°РєРёРј РёРјРµРЅРµРј РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚\n");
 							break;
 						default:
 							break;
@@ -211,7 +211,7 @@ void initMathMult(void)
 			}
 			else if ( !strcmp(cmd, "uni") ) {
 				char *(arg[3]);
-				if ( CH == '\n' ) { printf("ERROR: Не верный синтаксис.\n"); continue; }
+				if ( CH == '\n' ) { printf("ERROR: РќРµ РІРµСЂРЅС‹Р№ СЃРёРЅС‚Р°РєСЃРёСЃ.\n"); continue; }
 				if ( getArguments(arg, sizeof(arg) / sizeof(arg[0])) ) {
 					if ( strlen(arg[0]) == 1 && strlen(arg[1]) == 1 && strlen(arg[2]) == 1 ) {
 						t_mult *pm = UnityArray(*(arg[0]), *(arg[1]), *(arg[2]));
@@ -226,7 +226,7 @@ void initMathMult(void)
 			}
 			else if ( !strcmp(cmd, "int") ) {
 				char *(arg[3]);
-				if ( CH == '\n' ) { printf("ERROR: Не верный синтаксис.\n"); continue; }
+				if ( CH == '\n' ) { printf("ERROR: РќРµ РІРµСЂРЅС‹Р№ СЃРёРЅС‚Р°РєСЃРёСЃ.\n"); continue; }
 				if ( getArguments(arg, sizeof(arg) / sizeof(arg[0])) ) {
 					if ( strlen(arg[0]) == 1 && strlen(arg[1]) == 1 && strlen(arg[2]) == 1 ) {
 						t_mult *pm = InterArray(*(arg[0]), *(arg[1]), *(arg[2]));
@@ -241,7 +241,7 @@ void initMathMult(void)
 			}
 			else if ( !strcmp(cmd, "dif") ) {
 				char *(arg[3]);
-				if ( CH == '\n' ) { printf("ERROR: Не верный синтаксис.\n"); continue; }
+				if ( CH == '\n' ) { printf("ERROR: РќРµ РІРµСЂРЅС‹Р№ СЃРёРЅС‚Р°РєСЃРёСЃ.\n"); continue; }
 				if ( getArguments(arg, sizeof(arg) / sizeof(arg[0])) ) {
 					if ( strlen(arg[0]) == 1 && strlen(arg[1]) == 1 && strlen(arg[2]) == 1 ) {
 						t_mult *pm = DiffArray(*(arg[0]), *(arg[1]), *(arg[2]));
@@ -256,7 +256,7 @@ void initMathMult(void)
 			}
 			else if ( !strcmp(cmd, "sym") ) {
 				char *(arg[3]);
-				if ( CH == '\n' ) { printf("ERROR: Не верный синтаксис.\n"); continue; }
+				if ( CH == '\n' ) { printf("ERROR: РќРµ РІРµСЂРЅС‹Р№ СЃРёРЅС‚Р°РєСЃРёСЃ.\n"); continue; }
 				if ( getArguments(arg, sizeof(arg) / sizeof(arg[0])) ) {
 					if ( strlen(arg[0]) == 1 && strlen(arg[1]) == 1 && strlen(arg[2]) == 1 ) {
 						t_mult *pm = SymmDeffArray(*(arg[0]), *(arg[1]), *(arg[2]));
@@ -271,16 +271,16 @@ void initMathMult(void)
 			}
 			else if ( !strcmp(cmd, "inc") ) {
 				char *(arg[2]);
-				if ( CH == '\n' ) { printf("ERROR: Не верный синтаксис.\n"); continue; }
+				if ( CH == '\n' ) { printf("ERROR: РќРµ РІРµСЂРЅС‹Р№ СЃРёРЅС‚Р°РєСЃРёСЃ.\n"); continue; }
 				if ( getArguments(arg, sizeof(arg) / sizeof(arg[0])) ) {
 					if ( strlen(arg[0]) == 1 && strlen(arg[1]) == 1 ) {
 						switch ( isIncludeArray(*(arg[0]), *(arg[1])) )
 						{
 						case 0:
-							printf("Множество %c НЕ включено в %c\n", *(arg[0]), *(arg[1]));
+							printf("РњРЅРѕР¶РµСЃС‚РІРѕ %c РќР• РІРєР»СЋС‡РµРЅРѕ РІ %c\n", *(arg[0]), *(arg[1]));
 							break;
 						case 1:
-							printf("Множество %c включено в %c\n", *(arg[0]), *(arg[1]));
+							printf("РњРЅРѕР¶РµСЃС‚РІРѕ %c РІРєР»СЋС‡РµРЅРѕ РІ %c\n", *(arg[0]), *(arg[1]));
 							break;
 						default:
 							break;
@@ -293,7 +293,7 @@ void initMathMult(void)
 			else if ( !strcmp(cmd, "ls") ) {
 				if ( CH != '\n' ) {
 					if ( skip() ) {
-						printf("Не верный синтаксис.\n");
+						printf("РќРµ РІРµСЂРЅС‹Р№ СЃРёРЅС‚Р°РєСЃРёСЃ.\n");
 						continue;
 					}
 				}
@@ -301,7 +301,7 @@ void initMathMult(void)
 			}
 			else if ( !strcmp(cmd, "le") ) {
 				char *(arg[1]);
-				if ( CH == '\n' ) { printf("ERROR: Не верный синтаксис.\n"); continue; }
+				if ( CH == '\n' ) { printf("ERROR: РќРµ РІРµСЂРЅС‹Р№ СЃРёРЅС‚Р°РєСЃРёСЃ.\n"); continue; }
 				if ( getArguments(arg, sizeof(arg) / sizeof(arg[0])) ) {
 					if ( strlen(arg[0]) == 1 ) {
 						ShowElemListMult(findMult(*(arg[0])));
@@ -312,7 +312,7 @@ void initMathMult(void)
 			else if ( !strcmp(cmd, "help") ) {
 				if ( CH != '\n' ) {
 					if ( skip() ) {
-						printf("Не верный синтаксис.\n");
+						printf("РќРµ РІРµСЂРЅС‹Р№ СЃРёРЅС‚Р°РєСЃРёСЃ.\n");
 						continue;
 					}
 				}
@@ -321,7 +321,7 @@ void initMathMult(void)
 			else if ( !strcmp(cmd, "exit") ) {
 				if ( CH != '\n' ) {
 					if ( skip() ) {
-						printf("Не верный синтаксис.\n");
+						printf("РќРµ РІРµСЂРЅС‹Р№ СЃРёРЅС‚Р°РєСЃРёСЃ.\n");
 						continue;
 					}
 				}
@@ -329,7 +329,7 @@ void initMathMult(void)
 			}
 			else {
 			if ( CH != '\n' ) skip();
-				printf("ERROR: Не верная команда.\n");
+				printf("ERROR: РќРµ РІРµСЂРЅР°СЏ РєРѕРјР°РЅРґР°.\n");
 			}
 		}
 	}
@@ -339,34 +339,34 @@ void initMathMult(void)
 
 void showHelpList(void)
 {
-	printf("Пояснение:\n"
-		"<имя_множ>\tНаименование множества одной буквой [A-Z | a-z]\n"
-		"<элем>\t\tЭлементами множеств являются строки длиной до 80 символов (включительно),\n"
-		"\t\tсоставленные из символов таблицы ASCII, кроме символа двойных кавычек\n"
+	printf("РџРѕСЏСЃРЅРµРЅРёРµ:\n"
+		"<РёРјСЏ_РјРЅРѕР¶>\tРќР°РёРјРµРЅРѕРІР°РЅРёРµ РјРЅРѕР¶РµСЃС‚РІР° РѕРґРЅРѕР№ Р±СѓРєРІРѕР№ [A-Z | a-z]\n"
+		"<СЌР»РµРј>\t\tР­Р»РµРјРµРЅС‚Р°РјРё РјРЅРѕР¶РµСЃС‚РІ СЏРІР»СЏСЋС‚СЃСЏ СЃС‚СЂРѕРєРё РґР»РёРЅРѕР№ РґРѕ 80 СЃРёРјРІРѕР»РѕРІ (РІРєР»СЋС‡РёС‚РµР»СЊРЅРѕ),\n"
+		"\t\tСЃРѕСЃС‚Р°РІР»РµРЅРЅС‹Рµ РёР· СЃРёРјРІРѕР»РѕРІ С‚Р°Р±Р»РёС†С‹ ASCII, РєСЂРѕРјРµ СЃРёРјРІРѕР»Р° РґРІРѕР№РЅС‹С… РєР°РІС‹С‡РµРє\n"
 		"\n"
-		"Конструкторы и деструкторы:\n"
-		"NEW <имя_множ>\tсоздание множества\n"
-		"DEL <имя_множ>\tудаление существующего множества\n"
+		"РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂС‹ Рё РґРµСЃС‚СЂСѓРєС‚РѕСЂС‹:\n"
+		"NEW <РёРјСЏ_РјРЅРѕР¶>\tСЃРѕР·РґР°РЅРёРµ РјРЅРѕР¶РµСЃС‚РІР°\n"
+		"DEL <РёРјСЏ_РјРЅРѕР¶>\tСѓРґР°Р»РµРЅРёРµ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РµРіРѕ РјРЅРѕР¶РµСЃС‚РІР°\n"
 		"\n"
-		"Методы и свойства множества:\n"
-		"pow <имя_множ>\t\tвывести мощность множества\n"
-		"add <имя_множ> <элем>\tдобавить элемент\n"
-		"del <имя_множ> <элем>\tудалить элемент\n"
-		"che <имя_множ> <элем>\tпроверить, принадлежит ли элемент множеству\n"
+		"РњРµС‚РѕРґС‹ Рё СЃРІРѕР№СЃС‚РІР° РјРЅРѕР¶РµСЃС‚РІР°:\n"
+		"pow <РёРјСЏ_РјРЅРѕР¶>\t\tРІС‹РІРµСЃС‚Рё РјРѕС‰РЅРѕСЃС‚СЊ РјРЅРѕР¶РµСЃС‚РІР°\n"
+		"add <РёРјСЏ_РјРЅРѕР¶> <СЌР»РµРј>\tРґРѕР±Р°РІРёС‚СЊ СЌР»РµРјРµРЅС‚\n"
+		"del <РёРјСЏ_РјРЅРѕР¶> <СЌР»РµРј>\tСѓРґР°Р»РёС‚СЊ СЌР»РµРјРµРЅС‚\n"
+		"che <РёРјСЏ_РјРЅРѕР¶> <СЌР»РµРј>\tРїСЂРѕРІРµСЂРёС‚СЊ, РїСЂРёРЅР°РґР»РµР¶РёС‚ Р»Рё СЌР»РµРјРµРЅС‚ РјРЅРѕР¶РµСЃС‚РІСѓ\n"
 		"\n"
-		"Операции над множествами:\n"
-		"uni <имя_множ> <имя_множ1> <имя_множ2>\tобъединение\n"
-		"int <имя_множ> <имя_множ1> <имя_множ2>\tпересечение\n"
-		"dif <имя_множ> <имя_множ1> <имя_множ2>\tразность\n"
-		"sym <имя_множ> <имя_множ1> <имя_множ2>\tсимметрическая разность\n"
-		"inc <имя_множ1> <имя_множ2>\t\tпроверка включения\n"
+		"РћРїРµСЂР°С†РёРё РЅР°Рґ РјРЅРѕР¶РµСЃС‚РІР°РјРё:\n"
+		"uni <РёРјСЏ_РјРЅРѕР¶> <РёРјСЏ_РјРЅРѕР¶1> <РёРјСЏ_РјРЅРѕР¶2>\tРѕР±СЉРµРґРёРЅРµРЅРёРµ\n"
+		"int <РёРјСЏ_РјРЅРѕР¶> <РёРјСЏ_РјРЅРѕР¶1> <РёРјСЏ_РјРЅРѕР¶2>\tРїРµСЂРµСЃРµС‡РµРЅРёРµ\n"
+		"dif <РёРјСЏ_РјРЅРѕР¶> <РёРјСЏ_РјРЅРѕР¶1> <РёРјСЏ_РјРЅРѕР¶2>\tСЂР°Р·РЅРѕСЃС‚СЊ\n"
+		"sym <РёРјСЏ_РјРЅРѕР¶> <РёРјСЏ_РјРЅРѕР¶1> <РёРјСЏ_РјРЅРѕР¶2>\tСЃРёРјРјРµС‚СЂРёС‡РµСЃРєР°СЏ СЂР°Р·РЅРѕСЃС‚СЊ\n"
+		"inc <РёРјСЏ_РјРЅРѕР¶1> <РёРјСЏ_РјРЅРѕР¶2>\t\tРїСЂРѕРІРµСЂРєР° РІРєР»СЋС‡РµРЅРёСЏ\n"
 		"\n"
-		"Представление множеств для пользователя:\n"
-		"ls\t\tпросмотр списка существующих множеств\n"
-		"le <имя_множ>\tпросмотр элементов существующего множества\n"
+		"РџСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ РјРЅРѕР¶РµСЃС‚РІ РґР»СЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ:\n"
+		"ls\t\tРїСЂРѕСЃРјРѕС‚СЂ СЃРїРёСЃРєР° СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёС… РјРЅРѕР¶РµСЃС‚РІ\n"
+		"le <РёРјСЏ_РјРЅРѕР¶>\tРїСЂРѕСЃРјРѕС‚СЂ СЌР»РµРјРµРЅС‚РѕРІ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РµРіРѕ РјРЅРѕР¶РµСЃС‚РІР°\n"
 		"\n"
-		"help\tвывод списка команд\n"
-		"exit\tвыход из приложения\n");
+		"help\tРІС‹РІРѕРґ СЃРїРёСЃРєР° РєРѕРјР°РЅРґ\n"
+		"exit\tРІС‹С…РѕРґ РёР· РїСЂРёР»РѕР¶РµРЅРёСЏ\n");
 }
 
 void DelAllElem(t_element *head)
@@ -399,14 +399,14 @@ t_mult *CreatArray(char name)
 	t_mult *pNewMult, *pMult = findMult(name);
 
 	if ( pMult ) {
-		printf("ERROR: Множество с таким именем существует\n");
+		printf("ERROR: РњРЅРѕР¶РµСЃС‚РІРѕ СЃ С‚Р°РєРёРј РёРјРµРЅРµРј СЃСѓС‰РµСЃС‚РІСѓРµС‚\n");
 		return MNULL;
 	}
 
-	// Создание множества
+	// РЎРѕР·РґР°РЅРёРµ РјРЅРѕР¶РµСЃС‚РІР°
 	pNewMult = malloc(sizeof(t_mult));
 	if ( !pNewMult ) {
-		printf("ERROR: Недостаточно памяти\n");
+		printf("ERROR: РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РїР°РјСЏС‚Рё\n");
 		return MNULL;
 	}
 	
@@ -414,7 +414,7 @@ t_mult *CreatArray(char name)
 	pNewMult->array = NULL;
 	pNewMult->next = NULL;
 	
-	// Вставка множество сортировкой
+	// Р’СЃС‚Р°РІРєР° РјРЅРѕР¶РµСЃС‚РІРѕ СЃРѕСЂС‚РёСЂРѕРІРєРѕР№
 	if ( !HeadMultList ) {
 		HeadMultList = pNewMult;
 	}
@@ -436,7 +436,7 @@ void DelArray(char name)
 	t_mult *pMult = NULL, *pMultPrev;
 
 	if ( !HeadMultList ) {
-		printf("ERROR: Множество с таким именем не существует\n");
+		printf("ERROR: РњРЅРѕР¶РµСЃС‚РІРѕ СЃ С‚Р°РєРёРј РёРјРµРЅРµРј РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚\n");
 	}else if ( HeadMultList->name == name ) {
 		pMult = HeadMultList->next;
 		DelAllElem(HeadMultList->array);
@@ -452,7 +452,7 @@ void DelArray(char name)
 			free(pMult);
 		}
 		else {
-			printf("ERROR: Множество с таким именем не существует\n");
+			printf("ERROR: РњРЅРѕР¶РµСЃС‚РІРѕ СЃ С‚Р°РєРёРј РёРјРµРЅРµРј РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚\n");
 		}
 	}
 }
@@ -467,10 +467,10 @@ void CountElem(char name)
 	if ( pMult ) {
 		for ( pElem = pMult->array, count = 0; pElem != ENULL; pElem = pElem->next, count++ );
 
-		printf("Мощность множества |%c| = %i\n", name, count);
+		printf("РњРѕС‰РЅРѕСЃС‚СЊ РјРЅРѕР¶РµСЃС‚РІР° |%c| = %i\n", name, count);
 	}
 	else {
-		printf("ERROR: Множество с таким именем не существует\n");
+		printf("ERROR: РњРЅРѕР¶РµСЃС‚РІРѕ СЃ С‚Р°РєРёРј РёРјРµРЅРµРј РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚\n");
 	}
 }
 
@@ -482,7 +482,7 @@ void AddElem(t_mult *pMult, char *elem)
 		pHeadElemList = pMult->array;
 		pNewElem = malloc(sizeof(t_element));
 		if ( !pNewElem ) {
-			printf("ERROR: Недостаточно памяти\n");
+			printf("ERROR: РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РїР°РјСЏС‚Рё\n");
 			free(elem);
 			return;
 		}
@@ -490,7 +490,7 @@ void AddElem(t_mult *pMult, char *elem)
 		pNewElem->elem = elem;
 		pNewElem->next = ENULL;
 
-		// Вставка элемента сортировкой
+		// Р’СЃС‚Р°РІРєР° СЌР»РµРјРµРЅС‚Р° СЃРѕСЂС‚РёСЂРѕРІРєРѕР№
 		if ( !pHeadElemList ) {
 			pMult->array = pNewElem;
 		}
@@ -505,7 +505,7 @@ void AddElem(t_mult *pMult, char *elem)
 		}
 	}
 	else {
-		printf("ERROR: Множество с таким именем не существует\n");
+		printf("ERROR: РњРЅРѕР¶РµСЃС‚РІРѕ СЃ С‚Р°РєРёРј РёРјРµРЅРµРј РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚\n");
 		free(elem);
 		return;
 	}
@@ -541,10 +541,10 @@ void DelElem(t_mult *pMult, char *elem)
 				}
 			}
 
-		printf("ERROR: Такой элемента не существует в этом множестве\n");
+		printf("ERROR: РўР°РєРѕР№ СЌР»РµРјРµРЅС‚Р° РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚ РІ СЌС‚РѕРј РјРЅРѕР¶РµСЃС‚РІРµ\n");
 	}
 	else {
-		printf("ERROR: Множество с таким именем не существует\n");
+		printf("ERROR: РњРЅРѕР¶РµСЃС‚РІРѕ СЃ С‚Р°РєРёРј РёРјРµРЅРµРј РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚\n");
 	}
 
 	free(elem);
@@ -583,8 +583,8 @@ t_mult *UnityArray(char nameExit, char nameA, char nameB)
 	mA = findMult(nameA);
 	mB = findMult(nameB);
 	if ( !mA || !mB ) {
-		if ( !mA ) printf("ERROR: Множество %c не найдено.\n", nameA);
-		if ( !mB ) printf("ERROR: Множество %c не найдено.\n", nameB);
+		if ( !mA ) printf("ERROR: РњРЅРѕР¶РµСЃС‚РІРѕ %c РЅРµ РЅР°Р№РґРµРЅРѕ.\n", nameA);
+		if ( !mB ) printf("ERROR: РњРЅРѕР¶РµСЃС‚РІРѕ %c РЅРµ РЅР°Р№РґРµРЅРѕ.\n", nameB);
 		return MNULL;
 	}
 
@@ -644,8 +644,8 @@ t_mult *InterArray(char nameExit, char nameA, char nameB)
 	mA = findMult(nameA);
 	mB = findMult(nameB);
 	if ( !mA || !mB ) {
-		if ( !mA ) printf("ERROR: Множество %c не найдено.\n", nameA);
-		if ( !mB ) printf("ERROR: Множество %c не найдено.\n", nameB);
+		if ( !mA ) printf("ERROR: РњРЅРѕР¶РµСЃС‚РІРѕ %c РЅРµ РЅР°Р№РґРµРЅРѕ.\n", nameA);
+		if ( !mB ) printf("ERROR: РњРЅРѕР¶РµСЃС‚РІРѕ %c РЅРµ РЅР°Р№РґРµРЅРѕ.\n", nameB);
 		return MNULL;
 	}
 
@@ -689,8 +689,8 @@ t_mult *DiffArray(char nameExit, char nameA, char nameB)
 	mA = findMult(nameA);
 	mB = findMult(nameB);
 	if ( !mA || !mB ) {
-		if ( !mA ) printf("ERROR: Множество %c не найдено.\n", nameA);
-		if ( !mB ) printf("ERROR: Множество %c не найдено.\n", nameB);
+		if ( !mA ) printf("ERROR: РњРЅРѕР¶РµСЃС‚РІРѕ %c РЅРµ РЅР°Р№РґРµРЅРѕ.\n", nameA);
+		if ( !mB ) printf("ERROR: РњРЅРѕР¶РµСЃС‚РІРѕ %c РЅРµ РЅР°Р№РґРµРЅРѕ.\n", nameB);
 		return MNULL;
 	}
 
@@ -736,8 +736,8 @@ t_mult *SymmDeffArray(char nameExit, char nameA, char nameB)
 	mA = findMult(nameA);
 	mB = findMult(nameB);
 	if ( !mA || !mB ) {
-		if ( !mA ) printf("ERROR: Множество %c не найдено.\n", nameA);
-		if ( !mB ) printf("ERROR: Множество %c не найдено.\n", nameB);
+		if ( !mA ) printf("ERROR: РњРЅРѕР¶РµСЃС‚РІРѕ %c РЅРµ РЅР°Р№РґРµРЅРѕ.\n", nameA);
+		if ( !mB ) printf("ERROR: РњРЅРѕР¶РµСЃС‚РІРѕ %c РЅРµ РЅР°Р№РґРµРЅРѕ.\n", nameB);
 		return MNULL;
 	}
 
@@ -799,8 +799,8 @@ int isIncludeArray(char nameA, char nameB)
 	mB = findMult(nameB);
 
 	if ( !mA || !mB ) {
-		if ( !mA ) printf("ERROR: Множество %c не найдено.\n", nameA);
-		if ( !mB ) printf("ERROR: Множество %c не найдено.\n", nameB);
+		if ( !mA ) printf("ERROR: РњРЅРѕР¶РµСЃС‚РІРѕ %c РЅРµ РЅР°Р№РґРµРЅРѕ.\n", nameA);
+		if ( !mB ) printf("ERROR: РњРЅРѕР¶РµСЃС‚РІРѕ %c РЅРµ РЅР°Р№РґРµРЅРѕ.\n", nameB);
 		return -1;
 	}
 
@@ -827,7 +827,7 @@ int isIncludeArray(char nameA, char nameB)
 void ShowMultList(void)
 {
 	t_mult *mult = HeadMultList;
-	printf("Список множеств:\n");
+	printf("РЎРїРёСЃРѕРє РјРЅРѕР¶РµСЃС‚РІ:\n");
 	if ( mult != MNULL ) {
 		while ( mult )
 		{
@@ -836,7 +836,7 @@ void ShowMultList(void)
 		}
 	}
 	else {
-		printf("Пусто.\n");
+		printf("РџСѓСЃС‚Рѕ.\n");
 	}
 }
 
@@ -846,11 +846,11 @@ void ShowElemListMult(t_mult *pMult)
 
 
 	if ( pMult == MNULL ) {
-		printf("ERROR: Множество с таким именем не существует\n");
+		printf("ERROR: РњРЅРѕР¶РµСЃС‚РІРѕ СЃ С‚Р°РєРёРј РёРјРµРЅРµРј РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚\n");
 		return;
 	}
 	
-	printf("Элементы множества %c:\n", pMult->name);
+	printf("Р­Р»РµРјРµРЅС‚С‹ РјРЅРѕР¶РµСЃС‚РІР° %c:\n", pMult->name);
 	pElem = pMult->array;
 	if ( pElem != ENULL ) {
 		while ( pElem )
@@ -860,6 +860,6 @@ void ShowElemListMult(t_mult *pMult)
 		}
 	}
 	else {
-		printf("Пусто.\n");
+		printf("РџСѓСЃС‚Рѕ.\n");
 	}
 }
