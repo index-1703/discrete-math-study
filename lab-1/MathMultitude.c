@@ -464,7 +464,14 @@ void delMathMult(void)
 //----------------------------------------------------------------------------------------------------
 t_mult *CreatArray(char name)
 {
-	t_mult *pNewMult, *pMult = findMult(name);
+	t_mult *pNewMult, *pMult;
+
+	if ( !(name >= 'A' && name <= 'Z' || name >= 'a' && name <= 'z') ) {
+		printf("ERROR: Неверное имя.\n");
+		return MNULL;
+	}
+
+	pMult = findMult(name);
 
 	if ( pMult ) {
 		printf("ERROR: Множество с таким именем существует\n");
@@ -568,6 +575,15 @@ void AddElem(t_mult *pMult, char *elem)
 		}
 		else {
 			for ( pElem = pHeadElemList; pElem->next != ENULL && strcmp(pElem->next->elem,elem) < 0; pElem = pElem->next );
+			
+			if ( strcmp(pElem->elem, elem) == 0 ) {
+				free(elem);
+				free(pNewElem);
+				
+				printf("ERROR: Данный элемент существует в множестве %c.\n", pMult->name);
+				return;
+			}
+
 			pNewElem->next = pElem->next;
 			pElem->next = pNewElem;
 		}
@@ -912,20 +928,21 @@ void ShowElemListMult(t_mult *pMult)
 {
 	t_element *pElem;
 
-
 	if ( pMult == MNULL ) {
 		printf("ERROR: Множество с таким именем не существует\n");
 		return;
 	}
 	
-	printf("Элементы множества %c:\n", pMult->name);
+	printf("Элементы множества %c:\n %c = {\n", pMult->name, pMult->name);
 	pElem = pMult->array;
 	if ( pElem != ENULL ) {
 		while ( pElem )
 		{
-			printf("%s\n", pElem->elem);
+			printf("\t\"%s\"", pElem->elem);
 			pElem = pElem->next;
+			printf(pElem == NULL ? "\n" : ",\n");
 		}
+		printf("}\n");
 	}
 	else {
 		printf("Пусто.\n");
