@@ -16,7 +16,7 @@
 #define MNULL (t_set *)NULL
 
 t_set *HeadSetList = (t_set*)NULL;
-
+static int skip(void);
 static t_set *findSet(char name) {
 	t_set *pSet;
 	for ( pSet = HeadSetList; pSet != MNULL && pSet->name != name; pSet = pSet->next );
@@ -69,7 +69,7 @@ static char getWords(char *arr, int arrSize) {
 	return ch;
 }
 
-static int skip() {
+static int skip(void) {
 	char ch;
 	int is = 0;
 	while ( ch = getchar() != '\n' ) {
@@ -607,6 +607,7 @@ void DelElem(t_set *pSet, char *elem)
 			if ( strcmp(pHeadElemList->elem, elem) == 0 ) {
 				pElem = pHeadElemList->next;
 				pSet->array = pElem;
+				free(pHeadElemList->elem);
 				free(pHeadElemList);
 
 				free(elem);
