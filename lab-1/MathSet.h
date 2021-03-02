@@ -8,25 +8,25 @@ typedef struct t_element {
 	struct t_element *next;
 }t_element;
 
-typedef struct t_mult {
+typedef struct t_set {
 	char name;
 	t_element *array;
-	struct t_mult *next;
-}t_mult;
+	struct t_set *next;
+}t_set;
 
 //инициализация программы 
-void initMathMult(void);
+void initMathSet(void);
 
 //помощь по командам (Вывод в консоль)
 void showHelpList(void);
 
 //очищение памяти
-void delMathMult(void);
+void delMathSet(void);
 
 
 /// Конструкторы и деструкторы
 //создание множества
-t_mult* CreatArray(char name);
+t_set* CreatArray(char name);
 //удаление существующего множества
 void DelArray(char name);
 
@@ -35,30 +35,30 @@ void DelArray(char name);
 //вывести мощность множества
 void CountElem(char name);
 //добавить элемент
-void AddElem(t_mult *pMult, char *elem);
+void AddElem(t_set *pSet, char *elem);
 //удалить элемент
-void DelElem(t_mult *pMult, char *elem);
+void DelElem(t_set *pSet, char *elem);
 //проверить, принадлежит ли элемент множеству
-int CheckElem(t_mult *pMult, char *elem);
+int CheckElem(t_set *pSet, char *elem);
 
 
 /// Операции над множествами
 //объединение
-t_mult *UnityArray(char nameExit, char nameA, char nameB);
+t_set *UnityArray(char nameExit, char nameA, char nameB);
 //пересечение
-t_mult *InterArray(char nameExit, char nameA, char nameB);
+t_set *InterArray(char nameExit, char nameA, char nameB);
 //разность
-t_mult *DiffArray(char nameExit, char nameA, char nameB);
+t_set *DiffArray(char nameExit, char nameA, char nameB);
 //симметрическая разность
-t_mult *SymmDeffArray(char nameExit, char nameA, char nameB);
+t_set *SymmDeffArray(char nameExit, char nameA, char nameB);
 //проверка включения
 int isIncludeArray(char nameA, char nameB);
 
 
 /// Представление множеств для пользователя
 //просмотр списка существующих множеств
-void ShowMultList(void);
+void ShowSetList(void);
 //просмотр элементов существующего множества
-void ShowElemListMult(t_mult *pMult);
+void ShowElemListSet(t_set *pSet);
 
 #endif // !MATH_MULTITUDE_INCLUDE__

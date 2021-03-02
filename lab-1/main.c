@@ -1,6 +1,6 @@
-﻿#include "MathMultitude.h"
+﻿#include "MathSet.h"
 #include <stdlib.h>
 int main(void) {
-	initMathMult();
+	initMathSet();
 	return 0;
 }

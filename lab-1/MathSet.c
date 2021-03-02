@@ -1,4 +1,4 @@
-﻿#include "MathMultitude.h"
+﻿#include "MathSet.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -13,20 +13,20 @@
 #define SIZE_ELEMENT 81
 #define MAX_ARGUMENTS 5
 #define ENULL (t_element *)NULL
-#define MNULL (t_mult *)NULL
+#define MNULL (t_set *)NULL
 
-t_mult *HeadMultList = (t_mult*)NULL;
+t_set *HeadSetList = (t_set*)NULL;
 
-static t_mult *findMult(char name) {
-	t_mult *pMult;
-	for ( pMult = HeadMultList; pMult != MNULL && pMult->name != name; pMult = pMult->next );
-	return pMult;
+static t_set *findSet(char name) {
+	t_set *pSet;
+	for ( pSet = HeadSetList; pSet != MNULL && pSet->name != name; pSet = pSet->next );
+	return pSet;
 }
 
 static char getWords(char *arr, int arrSize) {
 	char ch, endch = ' ';
 	int size = 0;
-
+	
 	while ( (ch = getchar()) == ' ' );
 
 	if ( ch == '\n' ) {
@@ -44,7 +44,7 @@ static char getWords(char *arr, int arrSize) {
 		return (char) 0;
 	}
 
-	while ( size < arrSize - 1 ) {
+	while ( size < arrSize ) {
 		ch = getchar();
 
 		if ( ch == endch || ch == '\n' ) {
@@ -59,7 +59,7 @@ static char getWords(char *arr, int arrSize) {
 		}
 	}
 
-	if ( !(size < arrSize - 1) ) {
+	if ( !(size < arrSize) ) {
 		if ( ch != '\n' ) skip();
 		return (char) 0;
 	}
@@ -141,7 +141,7 @@ static int Append(t_element **c, t_element **e, char *d) {
 }
 
 //----------------------------------------------------------------------------------------------------
-void initMathMult(void)
+void initMathSet(void)
 {
 	char cmd[10], CH;
 
@@ -202,7 +202,7 @@ void initMathMult(void)
 				if ( CH == '\n' ) { printf("ERROR: Неверный синтаксис.\n"); continue; }
 				if ( getArguments(arg, sizeof(arg) / sizeof(arg[0])) ) {
 					if ( strlen(arg[0]) == 1 ) {
-						AddElem(findMult(*(arg[0])), arg[1]);
+						AddElem(findSet(*(arg[0])), arg[1]);
 					}
 					else
 					{
@@ -216,7 +216,7 @@ void initMathMult(void)
 				if ( CH == '\n' ) { printf("ERROR: Неверный синтаксис.\n"); continue; }
 				if ( getArguments(arg, sizeof(arg) / sizeof(arg[0])) ) {
 					if ( strlen(arg[0]) == 1 ) {
-						DelElem(findMult(*(arg[0])), arg[1]);
+						DelElem(findSet(*(arg[0])), arg[1]);
 					}
 					else
 					{
@@ -230,7 +230,7 @@ void initMathMult(void)
 				if ( CH == '\n' ) { printf("ERROR: Неверный синтаксис.\n"); continue; }
 				if ( getArguments(arg, sizeof(arg) / sizeof(arg[0])) ) {
 					if ( strlen(arg[0]) == 1 ) {
-						switch ( CheckElem(findMult(*(arg[0])), arg[1]) )
+						switch ( CheckElem(findSet(*(arg[0])), arg[1]) )
 						{
 						case 1:
 							printf("Элемент найден\n");
@@ -257,9 +257,9 @@ void initMathMult(void)
 				if ( CH == '\n' ) { printf("ERROR: Неверный синтаксис.\n"); continue; }
 				if ( getArguments(arg, sizeof(arg) / sizeof(arg[0])) ) {
 					if ( strlen(arg[0]) == 1 && strlen(arg[1]) == 1 && strlen(arg[2]) == 1 ) {
-						t_mult *pm = UnityArray(*(arg[0]), *(arg[1]), *(arg[2]));
+						t_set *pm = UnityArray(*(arg[0]), *(arg[1]), *(arg[2]));
 #ifdef PRINT_MULT_OPER
-						if ( pm ) ShowElemListMult(pm);
+						if ( pm ) ShowElemListSet(pm);
 #endif // PRINT_MULT_OPER
 					}
 					else
@@ -276,9 +276,9 @@ void initMathMult(void)
 				if ( CH == '\n' ) { printf("ERROR: Неверный синтаксис.\n"); continue; }
 				if ( getArguments(arg, sizeof(arg) / sizeof(arg[0])) ) {
 					if ( strlen(arg[0]) == 1 && strlen(arg[1]) == 1 && strlen(arg[2]) == 1 ) {
-						t_mult *pm = InterArray(*(arg[0]), *(arg[1]), *(arg[2]));
+						t_set *pm = InterArray(*(arg[0]), *(arg[1]), *(arg[2]));
 #ifdef PRINT_MULT_OPER
-						if ( pm ) ShowElemListMult(pm);
+						if ( pm ) ShowElemListSet(pm);
 #endif // PRINT_MULT_OPER
 					}
 					else
@@ -295,9 +295,9 @@ void initMathMult(void)
 				if ( CH == '\n' ) { printf("ERROR: Неверный синтаксис.\n"); continue; }
 				if ( getArguments(arg, sizeof(arg) / sizeof(arg[0])) ) {
 					if ( strlen(arg[0]) == 1 && strlen(arg[1]) == 1 && strlen(arg[2]) == 1 ) {
-						t_mult *pm = DiffArray(*(arg[0]), *(arg[1]), *(arg[2]));
+						t_set *pm = DiffArray(*(arg[0]), *(arg[1]), *(arg[2]));
 #ifdef PRINT_MULT_OPER
-						if ( pm ) ShowElemListMult(pm);
+						if ( pm ) ShowElemListSet(pm);
 #endif // PRINT_MULT_OPER
 					}
 					else
@@ -314,9 +314,9 @@ void initMathMult(void)
 				if ( CH == '\n' ) { printf("ERROR: Неверный синтаксис.\n"); continue; }
 				if ( getArguments(arg, sizeof(arg) / sizeof(arg[0])) ) {
 					if ( strlen(arg[0]) == 1 && strlen(arg[1]) == 1 && strlen(arg[2]) == 1 ) {
-						t_mult *pm = SymmDeffArray(*(arg[0]), *(arg[1]), *(arg[2]));
+						t_set *pm = SymmDeffArray(*(arg[0]), *(arg[1]), *(arg[2]));
 #ifdef PRINT_MULT_OPER
-						if ( pm ) ShowElemListMult(pm);
+						if ( pm ) ShowElemListSet(pm);
 #endif // PRINT_MULT_OPER
 					}
 					else
@@ -360,14 +360,14 @@ void initMathMult(void)
 						continue;
 					}
 				}
-				ShowMultList();
+				ShowSetList();
 			}
 			else if ( !strcmp(cmd, "le") ) {
 				char *(arg[1]);
 				if ( CH == '\n' ) { printf("ERROR: Неверный синтаксис.\n"); continue; }
 				if ( getArguments(arg, sizeof(arg) / sizeof(arg[0])) ) {
 					if ( strlen(arg[0]) == 1 ) {
-						ShowElemListMult(findMult(*(arg[0])));
+						ShowElemListSet(findSet(*(arg[0])));
 					}
 					else
 					{
@@ -402,7 +402,7 @@ void initMathMult(void)
 		}
 	}
 
-	delMathMult();
+	delMathSet();
 }
 
 void showHelpList(void)
@@ -448,83 +448,83 @@ void DelAllElem(t_element *head)
 	}
 }
 
-void delMathMult(void)
+void delMathSet(void)
 {
-	t_mult *pMult = HeadMultList, *pMultNext;
+	t_set *pSet = HeadSetList, *pSetNext;
 
-	while ( pMult )
+	while ( pSet )
 	{
-		DelAllElem(pMult->array);
-		pMultNext = pMult->next;
-		free(pMult);
-		pMult = pMultNext;
+		DelAllElem(pSet->array);
+		pSetNext = pSet->next;
+		free(pSet);
+		pSet = pSetNext;
 	}
 }
 
 //----------------------------------------------------------------------------------------------------
-t_mult *CreatArray(char name)
+t_set *CreatArray(char name)
 {
-	t_mult *pNewMult, *pMult;
+	t_set *pNewSet, *pSet;
 
 	if ( !(name >= 'A' && name <= 'Z' || name >= 'a' && name <= 'z') ) {
 		printf("ERROR: Неверное имя.\n");
 		return MNULL;
 	}
 
-	pMult = findMult(name);
+	pSet = findSet(name);
 
-	if ( pMult ) {
+	if ( pSet ) {
 		printf("ERROR: Множество с таким именем существует\n");
 		return MNULL;
 	}
 
 	// Создание множества
-	pNewMult = malloc(sizeof(t_mult));
-	if ( !pNewMult ) {
+	pNewSet = malloc(sizeof(t_set));
+	if ( !pNewSet ) {
 		printf("ERROR: Недостаточно памяти\n");
 		return MNULL;
 	}
 	
-	pNewMult->name = name;
-	pNewMult->array = NULL;
-	pNewMult->next = NULL;
+	pNewSet->name = name;
+	pNewSet->array = NULL;
+	pNewSet->next = NULL;
 	
 	// Вставка множество сортировкой
-	if ( !HeadMultList ) {
-		HeadMultList = pNewMult;
+	if ( !HeadSetList ) {
+		HeadSetList = pNewSet;
 	}
-	else if ( HeadMultList->name > name ) {
-		pNewMult->next = HeadMultList;
-		HeadMultList = pNewMult;
+	else if ( HeadSetList->name > name ) {
+		pNewSet->next = HeadSetList;
+		HeadSetList = pNewSet;
 	}
 	else {
-		for ( pMult = HeadMultList; pMult->next != MNULL && pMult->next->name < name; pMult = pMult->next );
-		pNewMult->next = pMult->next;
-		pMult->next = pNewMult;
+		for ( pSet = HeadSetList; pSet->next != MNULL && pSet->next->name < name; pSet = pSet->next );
+		pNewSet->next = pSet->next;
+		pSet->next = pNewSet;
 	}
 
-	return pNewMult;
+	return pNewSet;
 }
 
 void DelArray(char name)
 {
-	t_mult *pMult = NULL, *pMultPrev;
+	t_set *pSet = NULL, *pSetPrev;
 
-	if ( !HeadMultList ) {
+	if ( !HeadSetList ) {
 		printf("ERROR: Множество с таким именем не существует\n");
-	}else if ( HeadMultList->name == name ) {
-		pMult = HeadMultList->next;
-		DelAllElem(HeadMultList->array);
-		HeadMultList = pMult;
+	}else if ( HeadSetList->name == name ) {
+		pSet = HeadSetList->next;
+		DelAllElem(HeadSetList->array);
+		HeadSetList = pSet;
 	}
 	else {
-		for ( pMult = HeadMultList; pMult->next != MNULL && pMult->next->name < name; pMult = pMult->next );
-		if ( pMult->next != MNULL && pMult->next->name == name ) {
-			pMultPrev = pMult;
-			pMult = pMult->next;
-			pMultPrev->next = pMult->next;
-			DelAllElem(pMult->array);
-			free(pMult);
+		for ( pSet = HeadSetList; pSet->next != MNULL && pSet->next->name < name; pSet = pSet->next );
+		if ( pSet->next != MNULL && pSet->next->name == name ) {
+			pSetPrev = pSet;
+			pSet = pSet->next;
+			pSetPrev->next = pSet->next;
+			DelAllElem(pSet->array);
+			free(pSet);
 		}
 		else {
 			printf("ERROR: Множество с таким именем не существует\n");
@@ -534,13 +534,13 @@ void DelArray(char name)
 
 void CountElem(char name)
 {
-	t_mult *pMult;
+	t_set *pSet;
 	t_element *pElem;
 	int count;
 
-	for ( pMult = HeadMultList; pMult != MNULL && pMult->name != name; pMult = pMult->next );
-	if ( pMult ) {
-		for ( pElem = pMult->array, count = 0; pElem != ENULL; pElem = pElem->next, count++ );
+	for ( pSet = HeadSetList; pSet != MNULL && pSet->name != name; pSet = pSet->next );
+	if ( pSet ) {
+		for ( pElem = pSet->array, count = 0; pElem != ENULL; pElem = pElem->next, count++ );
 
 		printf("Мощность множества |%c| = %i\n", name, count);
 	}
@@ -549,12 +549,13 @@ void CountElem(char name)
 	}
 }
 
-void AddElem(t_mult *pMult, char *elem)
+// ! Интересно, элемент длиной 80 не добавляет, а длиной 79 - да
+void AddElem(t_set *pSet, char *elem)
 {
 	t_element *pHeadElemList, *pNewElem, *pElem;
 
-	if ( pMult ) {
-		pHeadElemList = pMult->array;
+	if ( pSet ) {
+		pHeadElemList = pSet->array;
 		pNewElem = malloc(sizeof(t_element));
 		if ( !pNewElem ) {
 			printf("ERROR: Недостаточно памяти\n");
@@ -567,11 +568,11 @@ void AddElem(t_mult *pMult, char *elem)
 
 		// Вставка элемента сортировкой
 		if ( !pHeadElemList ) {
-			pMult->array = pNewElem;
+			pSet->array = pNewElem;
 		}
 		else if ( strcmp(pHeadElemList->elem, elem) > 0 ) {
 			pNewElem->next = pHeadElemList;
-			pMult->array = pNewElem;
+			pSet->array = pNewElem;
 		}
 		else {
 			for ( pElem = pHeadElemList; pElem->next != ENULL && strcmp(pElem->next->elem,elem) < 0; pElem = pElem->next );
@@ -580,7 +581,7 @@ void AddElem(t_mult *pMult, char *elem)
 				free(elem);
 				free(pNewElem);
 				
-				printf("ERROR: Данный элемент существует в множестве %c.\n", pMult->name);
+				printf("ERROR: Данный элемент существует в множестве %c.\n", pSet->name);
 				return;
 			}
 
@@ -595,17 +596,17 @@ void AddElem(t_mult *pMult, char *elem)
 	}
 }
 
-void DelElem(t_mult *pMult, char *elem)
+void DelElem(t_set *pSet, char *elem)
 {
 	t_element *pHeadElemList, *pElemPrev, *pElem;
 
-	if ( pMult ) {
-		pHeadElemList = pMult->array;
+	if ( pSet ) {
+		pHeadElemList = pSet->array;
 
 		if ( pHeadElemList )
 			if ( strcmp(pHeadElemList->elem, elem) == 0 ) {
 				pElem = pHeadElemList->next;
-				pMult->array = pElem;
+				pSet->array = pElem;
 				free(pHeadElemList);
 
 				free(elem);
@@ -634,13 +635,14 @@ void DelElem(t_mult *pMult, char *elem)
 	free(elem);
 }
 
-int CheckElem(t_mult *pMult, char *elem)
+// ! Хорошая функция, все находит
+int CheckElem(t_set *pSet, char *elem)
 {
 	t_element *pElem;
 	int is = 0;
 
-	if ( pMult ) {
-		for ( pElem = pMult->array; pElem != ENULL && strcmp(pElem->elem, elem) == 0; pElem = pElem->next );
+	if ( pSet ) {
+		for ( pElem = pSet->array; pElem != ENULL && strcmp(pElem->elem, elem) != 0; pElem = pElem->next );
 		if ( pElem != ENULL ) {
 			is = 1;
 		}
@@ -657,15 +659,15 @@ int CheckElem(t_mult *pMult, char *elem)
 }
 
 //----------------------------------------------------------------------------------------------------
-t_mult *UnityArray(char nameExit, char nameA, char nameB)
+t_set *UnityArray(char nameExit, char nameA, char nameB)
 {
-	t_mult *mA, *mB, *mC;
+	t_set *mA, *mB, *mC;
 	t_element *pa, *pb, *c, *e, *p;
 	int is;
 	char *d;
 
-	mA = findMult(nameA);
-	mB = findMult(nameB);
+	mA = findSet(nameA);
+	mB = findSet(nameB);
 	if ( !mA || !mB ) {
 		if ( !mA ) printf("ERROR: Множество %c не найдено.\n", nameA);
 		if ( !mB ) printf("ERROR: Множество %c не найдено.\n", nameB);
@@ -719,14 +721,14 @@ t_mult *UnityArray(char nameExit, char nameA, char nameB)
 	return mC;
 }
 
-t_mult *InterArray(char nameExit, char nameA, char nameB)
+t_set *InterArray(char nameExit, char nameA, char nameB)
 {
-	t_mult *mA, *mB, *mC;
+	t_set *mA, *mB, *mC;
 	t_element *pa, *pb, *c, *e;
 	int is;
 
-	mA = findMult(nameA);
-	mB = findMult(nameB);
+	mA = findSet(nameA);
+	mB = findSet(nameB);
 	if ( !mA || !mB ) {
 		if ( !mA ) printf("ERROR: Множество %c не найдено.\n", nameA);
 		if ( !mB ) printf("ERROR: Множество %c не найдено.\n", nameB);
@@ -764,14 +766,15 @@ t_mult *InterArray(char nameExit, char nameA, char nameB)
 	return mC;
 }
 
-t_mult *DiffArray(char nameExit, char nameA, char nameB)
+// ! Куда-то пропала концовка после применения dif
+t_set *DiffArray(char nameExit, char nameA, char nameB)
 {
-	t_mult *mA, *mB, *mC;
+	t_set *mA, *mB, *mC;
 	t_element *pa, *pb, *c, *e;
 	int is;
 
-	mA = findMult(nameA);
-	mB = findMult(nameB);
+	mA = findSet(nameA);
+	mB = findSet(nameB);
 	if ( !mA || !mB ) {
 		if ( !mA ) printf("ERROR: Множество %c не найдено.\n", nameA);
 		if ( !mB ) printf("ERROR: Множество %c не найдено.\n", nameB);
@@ -803,6 +806,15 @@ t_mult *DiffArray(char nameExit, char nameA, char nameB)
 			pa = pa->next;
 			pb = pb->next;
 		}
+	}
+
+	while (pa != ENULL) {
+		if ( !Append(&c, &e, pa->elem) ) {
+				DelAllElem(c);
+				DelArray(nameExit);
+				return MNULL;
+			}
+		pa = pa->next;
 	}
 
 	mC->array = c;
@@ -811,14 +823,14 @@ t_mult *DiffArray(char nameExit, char nameA, char nameB)
 	return 0;
 }
 
-t_mult *SymmDeffArray(char nameExit, char nameA, char nameB)
+t_set *SymmDeffArray(char nameExit, char nameA, char nameB)
 {
-	t_mult *mA, *mB, *mC;
+	t_set *mA, *mB, *mC;
 	t_element *pa, *pb, *c, *e, *p;
 	int is;
 
-	mA = findMult(nameA);
-	mB = findMult(nameB);
+	mA = findSet(nameA);
+	mB = findSet(nameB);
 	if ( !mA || !mB ) {
 		if ( !mA ) printf("ERROR: Множество %c не найдено.\n", nameA);
 		if ( !mB ) printf("ERROR: Множество %c не найдено.\n", nameB);
@@ -876,12 +888,12 @@ t_mult *SymmDeffArray(char nameExit, char nameA, char nameB)
 
 int isIncludeArray(char nameA, char nameB)
 {
-	t_mult *mA, *mB;
+	t_set *mA, *mB;
 	t_element *pa, *pb;
 	int is;
-	mA = findMult(nameA);
-	mB = findMult(nameB);
-
+	mA = findSet(nameA);
+	mB = findSet(nameB);
+	
 	if ( !mA || !mB ) {
 		if ( !mA ) printf("ERROR: Множество %c не найдено.\n", nameA);
 		if ( !mB ) printf("ERROR: Множество %c не найдено.\n", nameB);
@@ -908,15 +920,15 @@ int isIncludeArray(char nameA, char nameB)
 }
 
 //----------------------------------------------------------------------------------------------------
-void ShowMultList(void)
+void ShowSetList(void)
 {
-	t_mult *mult = HeadMultList;
+	t_set *set = HeadSetList;
 	printf("Список множеств:\n");
-	if ( mult != MNULL ) {
-		while ( mult )
+	if ( set != MNULL ) {
+		while ( set )
 		{
-			printf("%c\n", mult->name);
-			mult = mult->next;
+			printf("%c\n", set->name);
+			set = set->next;
 		}
 	}
 	else {
@@ -924,17 +936,17 @@ void ShowMultList(void)
 	}
 }
 
-void ShowElemListMult(t_mult *pMult)
+void ShowElemListSet(t_set *pSet)
 {
 	t_element *pElem;
 
-	if ( pMult == MNULL ) {
+	if ( pSet == MNULL ) {
 		printf("ERROR: Множество с таким именем не существует\n");
 		return;
 	}
 	
-	printf("Элементы множества %c:\n %c = {\n", pMult->name, pMult->name);
-	pElem = pMult->array;
+	printf("Элементы множества %c:\n %c = {\n", pSet->name, pSet->name);
+	pElem = pSet->array;
 	if ( pElem != ENULL ) {
 		while ( pElem )
 		{
@@ -948,3 +960,4 @@ void ShowElemListMult(t_mult *pMult)
 		printf("Пусто.\n");
 	}
 }
+
