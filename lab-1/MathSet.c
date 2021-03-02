@@ -575,7 +575,7 @@ void AddElem(t_set *pSet, char *elem)
 			pSet->array = pNewElem;
 		}
 		else {
-			for ( pElem = pHeadElemList; pElem->next != ENULL && strcmp(pElem->next->elem,elem) < 0; pElem = pElem->next );
+			for ( pElem = pHeadElemList; pElem->next != ENULL && strcmp(pElem->next->elem,elem) <= 0; pElem = pElem->next );
 			
 			if ( strcmp(pElem->elem, elem) == 0 ) {
 				free(elem);
